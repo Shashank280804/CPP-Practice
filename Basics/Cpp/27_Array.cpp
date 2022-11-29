@@ -93,8 +93,7 @@ int main()
             {
                 cout<<"\nStudent is not present!";
             }
-            else
-            {}
+
             break;
 
             case 5:
@@ -117,7 +116,9 @@ int main()
             {
                 for(j=i+1;j<=n;j++)
                 {
-                    s[j-1]=s[j];
+                    s[j-1] = s[j];
+                  //s[2-1] = s[2];
+                  //s[3-1] = s[3];
                 }
                 n--;
             }
@@ -140,8 +141,6 @@ int main()
             {
                 cout<<"\nStudent is not present!";
             }
-            else
-            {}
             break;
 
             case 7:

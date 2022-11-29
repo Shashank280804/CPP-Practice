@@ -4,12 +4,12 @@
   Batch : A2
   PRN No: 202101040077
 
-  Aim:Design and develop a program for insertion,deletion,updating,searching,sorting,listing operations using 
+  Aim:Design and develop a program for insertion,deletion,updating,searching,sorting,listing operations using
   singly linked list for a placement information sysytem
-  
+
 */
 #include <iostream>
-#include<string.h>
+#include <string.h>
 using namespace std;
 class node
 {
@@ -35,9 +35,7 @@ public:
     void display(void);
     void insert(void);
     void dele(void);
-    void update(void);
     void search(void);
-    void sort(void);
 };
 void sll ::create(void)
 {
@@ -47,29 +45,29 @@ void sll ::create(void)
     do
     {
         temp = new node;
-        
+
         cout << "Enter Name of the employee : " << endl;
         cin >> temp->employee_name;
         cout << "Enter the cgpa : " << endl;
         cin >> temp->cgpa;
         cout << "Enter the previous package  : " << endl;
         cin >> temp->previous_pack;
-        cout<<"Enter the name of previous company"<<endl;
+        cout << "Enter the name of previous company" << endl;
         cin >> temp->company_name;
-        temp->next = NULL;
+        temp->next = NULL;    
         len++;
-        if (head == NULL)
+        if (head == NULL)  //captain koni ch nhi ahe
         {
-            head = temp;
+            head = temp;  //shashank pahla ala mhanun captain krun takla
         }
         else
         {
-            p = head;
+            p = head;  //baburao la head point krt ahe  ani toh list traverse krel johparyant ekhadya node cha next null bhetat nhi tohparyant
             while (p->next != NULL)
             {
                 p = p->next;
             }
-            p->next = temp;
+            p->next = temp; //jithe pudhchya node cha address null bhetla tithe temp attach kela
         }
         cout << "Do you want to add more employee? " << endl;
         cin >> ch;
@@ -78,23 +76,24 @@ void sll ::create(void)
 void sll ::display(void)
 {
     node *p;
-    p = head;
-    while (p != NULL)
+    p = head;    
+    while (p != NULL)   //swatah null ahe ka nsel tr swatha cha data print krr ani baburao la smor dhaklel check krayla
     {
-        
+
         cout << " Employee Name : " << p->employee_name << endl;
         cout << " Cgpa : " << p->cgpa << endl;
         cout << " previous package : " << p->previous_pack << endl;
-        cout << "  previous company name: "<<p->company_name<<endl;
-        p = p->next;
+        cout << "  previous company name: " << p->company_name << endl;
+        p = p->next;  //swatha cha data lihun baburao la smor pathavla register gheun
     }
 }
+
 void sll ::insert()
 {
     node *temp, *p;
     int pos;
     temp = new node;
-    
+
     cout << "Enter the employee name : " << endl;
     cin >> temp->employee_name;
     cout << "Enter the cgpa : " << endl;
@@ -104,33 +103,36 @@ void sll ::insert()
     cout << "Enter the previous company name : " << endl;
     cin >> temp->company_name;
     temp->next = NULL;
-    cout << "Enter the position where you want to enter this information : "<<endl;
+
+    cout << "Enter the position where you want to enter this information : " << endl;
     cin >> pos;
-    if (pos == 1)
+    if (pos == 1)  //head la enter  kraych asel navin node tr pos == 1 
     {
-        temp->next = head;
-        head = temp;
+        temp->next = head; //ayush point krt shashank (previous captain)
+        head = temp;   //ayush(navin node) la captain banavla
     }
-    else if (pos > len)
+    else if (pos > len) //insert at last
     {
-        p = head;
+        p = head;  //baburao chk krt rahil last paryant jithe address null sapadla tithe temp la attach kela
         while (p->next != NULL)
         {
             p = p->next;
         }
         p->next = temp;
     }
-    else
+    else  //insert at given position
     {
-        p = head;
-        for (int i = 1; i < pos - 1; i++)
-        {
-            p = p->next;
+        p = head;   
+        for (int i = 1; i < pos - 1; i++) //pos==4,
+                                                //then i=1;1<4-1;i++; true                                                
+                                                    //  i=2;2<4-1;i++; true
+        {                                           //  i=3;3<4-1;i++; false  //hence number of passes =2 therefore pos-1;
+            p = p->next;                            //  p=p->next is executing 2 times for position 4
         }
-        temp->next = p->next;
+        temp->next = p->next; //diagram
         p->next = temp;
     }
-    len++;
+    len++;    //increasing the size of the list after the insertion
     cout << "your data is inserted " << endl;
 }
 void sll ::dele(void)
@@ -139,30 +141,41 @@ void sll ::dele(void)
     int pos;
     cout << "Enter the position of employee in list you want to delete : " << endl;
     cin >> pos;
-    if (pos > len)
+    if (pos > len) //list ahe 4 janachi incase user ni 6 number delete krayla sangitl tr position does not exist
     {
         cout << "The position do not exist" << endl;
     }
-    else if (pos == 1)
+    else if (pos == 1) //delete at first
     {
-        temp = head;
-        head = head->next;
-        delete temp;
-        len--;
+        temp = head;       //ayush la delete kraych ahe mhanun ayush la temp mdhe save kel
+        head = head->next; //captain shashank la banavla(head la smor dhaklla)
+        delete temp;       //ayush la delete kel
+        len--;             // size kami keli
     }
-    else if (pos == len)
+    // else if (pos == len)    //insert at last
+    // {
+    //     p = head;       // baburao traverse krnyasathi
+    //     for (int i = 1; i < len - 1; i++) //same as insert at middle
+    //     {
+    //         p = p->next;
+    //     }
+    //     temp = p->next;  //
+    //     p->next = NULL;   //
+    //     delete temp;
+    //     len--;
+    // }
+    else if(pos == len)
     {
         p = head;
-        for (int i = 1; i < len - 1; i++)
-        {
+        while(p->next->next!=NULL){
             p = p->next;
         }
         temp = p->next;
         p->next = NULL;
         delete temp;
-        len--;
+        len --;
     }
-    else
+    else //insert at middle
     {
         p = head;
         for (int i = 1; i < pos - 1; i++)
@@ -175,61 +188,13 @@ void sll ::dele(void)
         len--;
     }
 }
-void sll ::update(void)
-{
-    node *p;
-    int pos, choice;
-    cout << "Enter the position of employee in list whose infoermation has to be  update : "<<endl;
-     cin >>pos;
-    cout << "What information you want to update : " << endl;
-    cout << "1. Name \n 2.previous package \n 3. cgpa 4.company name" << endl;
-    cout << "Enter your choice : " << endl;
-    cin >> choice;
-    if (pos > len)
-    {
-        cout << "Position does'nt exist !!" << endl;
-    }
-    else if (pos == 1)
-    {
-        p = head;
-    }
-    else
-    {
-        p = head;
-        for (int i = 1; i < pos; i++)
-        {
-            p = p->next;
-        }
-    }
-    switch (choice)
-    {
-    case 1:
-        cout << "Enter the updated name : " << endl;
-        cin >> p->employee_name;
-        break;
-    case 2:
-        cout << "Enter the updated roll number : " << endl;
-        cin >> p->cgpa;
-        break;
-    case 3:
-        cout << "Enter the updated package : " << endl;
-        cin >> p->previous_pack;
-        break;
-    case 4:
-        cout<< "Enter the updated company name: "<<endl;
-        cin>> p->company_name;
-    default:
-        cout << " Choice is invalid" << endl;
-    }
-    cout << "Information has been updated " << endl;
-}
 void sll ::search(void)
 {
     string s;
     node *p;
     int flag = 0, pos = 1;
-    cout << "Enter the name of employee's information that you want to search :  "<<endl;
-            cin >>  s;
+    cout << "Enter the name of employee's information that you want to search :  " << endl;
+    cin >> s;
     p = head;
     while (p != NULL)
     {
@@ -250,48 +215,14 @@ void sll ::search(void)
     }
     else
     {
-    
+
         cout << " Employee name : " << p->employee_name << endl;
         cout << " cgpa : " << p->cgpa << endl;
         cout << " previous package : " << p->previous_pack << endl;
         cout << "Position in record : " << pos << endl;
     }
 }
-void sll ::sort()
-{
-    node *prev, *curr;
-    int c, p;
-    string n;
 
-    for (int i = 0; i < len; i++)
-    {
-        prev = head;
-        curr = head->next;
-        while (curr != NULL)
-        {
-            if (prev->cgpa > curr->cgpa)
-            {
-                n = curr->employee_name;
-                p = curr->previous_pack;
-                c = curr->cgpa;
-                curr->employee_name = prev->employee_name;
-                curr->cgpa = prev->cgpa;
-                curr->previous_pack = prev->previous_pack;
-                prev->employee_name = n;
-                prev->cgpa = c;
-                prev->previous_pack = p;
-                prev = prev->next;
-                curr = curr->next;
-            }
-            else
-            {
-                prev = prev->next;
-                curr = curr->next;
-            }
-        }
-    }
-    display();
-}
 int main()
 {
     sll a;
@@ -302,59 +233,55 @@ int main()
     do
     {
         cout << "What action you want to perform ??" << endl;
- cout<<" 1)Insert \n 2)Delete \n 3) Update \n 4) Search \n 5) Sort \n 6) Exit"<<endl;
- cout<<"Enter your choice : "<<endl;
- cin >> choice;
- switch (choice)
- {
- case 1:
-     a.insert();
-     a.display();
-     break;
- case 2:
-     a.dele();
-     a.display();
-     break;
- case 3:
-     a.update();
-     a.display();
-     break;
- case 4:
-     a.search();
-     a.display();
-     break;
- case 5:
-     a.sort();
-     a.display();
-     break;
- case 6:
-     cout << "Thanks for the information" << endl;
-     break;
- default:
-     cout << "does not exist" << endl;
- }
-    } while (choice != 6);
+        cout << " 1)Insert \n 2)Delete \n 3) Search \n 4) Display \n 5) Exit \n " << endl;
+        cout << "Enter your choice : " << endl;
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            a.insert();
+            a.display();
+            break;
+        case 2:
+            a.dele();
+            a.display();
+            break;
+        case 3:
+            a.search();
+            a.display();
+            break;
+        case 4:
+            a.display();
+            break;
+        case 5:
+            cout << "Thanks for the information" << endl;
+            break;
+
+        default:
+            cout << "does not exist" << endl;
+        }
+    } while (choice != 5);
 }
 /*
-Enter Name of the employee : 
+Enter Name of the employee :
 shashank
-Enter the cgpa : 
+Enter the cgpa :
 9
-Enter the previous package  : 
+Enter the previous package  :
 800000
 Enter the name of previous company
 tavisca
-Do you want to add more employee? 
+Do you want to add more employee?
 y
-Enter Name of the employee : 
+Enter Name of the employee :
 sankalp
-Enter the cgpa : 
+Enter the cgpa :
 9
-Enter the previous package  : 
+Enter the previous package  :
 900000
 Enter the name of previous company
 microsoft
-Do you want to add more employee? 
+Do you want to add more employee?
 n
  Employee Name : shashank
  Cgpa : 9
